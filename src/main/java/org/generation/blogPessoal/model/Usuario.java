@@ -45,7 +45,11 @@ public class Usuario {
 	@Column(name = "dt_nascimento")
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dataNascimento;
-				
+
+	private String foto;
+	
+	private String tipo; 
+	
 	public Usuario(Long id, @NotNull @Size(min = 2, max = 100) String nome,
 			@NotNull @Size(min = 5, max = 100) String usuario, @NotNull @Size(min = 5, max = 15) String senha,
 			LocalDate dataNascimento) {
@@ -60,8 +64,8 @@ public class Usuario {
 	public Usuario() { 
 	}
 
-	@OneToMany(mappedBy = "criador", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties({"criador"})
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"usuario"})
 	private List<Postagem> minhasPostagens = new ArrayList<>();
 
 	public Long getId() {
@@ -112,9 +116,20 @@ public class Usuario {
 		this.minhasPostagens = minhasPostagens;
 	}
 
-	public Object getFoto() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getFoto() {
+		return foto;
 	}
-	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 }
