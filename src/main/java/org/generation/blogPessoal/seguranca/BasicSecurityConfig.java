@@ -16,19 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity //declara que é classe de segurança
-public class BasicSegurityConfig extends WebSecurityConfigurerAdapter {
+public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	//camada de configuração basica da segurança;
 	
 	@Autowired //injeção de dependencia
 	private UserDetailsService userDetailService;
-	
-	@Override //sobreescrita 									//THROWS tratativa de erros 
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception{ //pacote protegido do tipo vazio, recebe com parameto Authentication... nomeado como auth
-		auth.userDetailsService(userDetailService); //chama o que recebemos, o auth, como parametro usamos o userdetailservice, e passamos o userdetailservice que injetamos.
-		auth.inMemoryAuthentication().withUser("boaz").password(passwordEncoder().encode("boaz")).authorities("ROLE_ADMIN");
-
-	}
 	
 	@Bean //usar o @Bean em um método, e tornar a instância retornada pelo método como um objeto gerenciado pelo Spring (seja de uma classe própria ou de terceiros)
 	public PasswordEncoder passwordEncoder() {
@@ -48,8 +41,8 @@ public class BasicSegurityConfig extends WebSecurityConfigurerAdapter {
 		.and().csrf().disable();
 	}
 	
-	//@Override
-	protected void configurer(AuthenticationManagerBuilder auth) throws Exception{
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 	
 		auth.userDetailsService(userDetailService);
 		
@@ -62,7 +55,6 @@ public class BasicSegurityConfig extends WebSecurityConfigurerAdapter {
 		.withUser("root")
 		.password(passwordEncoder().encode("root"))
 		.authorities("ROLE_USER");
-
 
 	}
 }
