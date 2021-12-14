@@ -39,7 +39,7 @@ public class Usuario {
 	private String usuario;
 
 	@NotNull
-	@Size(min = 5, max = 15)
+	@Size(min = 5, max = 150)
 	private String senha;
 	
 	@Column(name = "dt_nascimento")
